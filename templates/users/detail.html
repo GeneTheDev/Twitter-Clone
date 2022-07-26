@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+
+<body>
+    {% block content %}
+    <ul>Image For {{user.username}}
+        <li> Messages
+            <a href="">{{user.messages|length}}</a>
+        </li>
+        <li> Following
+            <a href="">{{user.following|length}}</a>
+        </li>
+        <li> Followers
+            <a href="">{{user.followers|length}}</a>
+        </li>
+        <li> Likes
+            <a href="">{{user.likes|length}}</a>
+        </li>
+    </ul>
+    {% if g.user.id == user.id %} <a href="/edit">Edit Profile</a>
+    <button>Delete</button>
+
+    {% elif g.user %} {% if g.user.is_following(user) %}
+    <button>Unfollow</button>
+
+    {% else %}
+    <button>Follow</button>
+
+    {% endif %}
+    {% endif %}
+
+    <a href="">@{{user.username}}</a>
+
+    {{user.bio}}
+    {{user.location}}
+    {% block user_details %}
+    {% endblock %}
+    {% endblock %}
+
+
+</body>
+
+</html>

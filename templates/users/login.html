@@ -22,7 +22,7 @@
     <body>
 
         {% block content %}
-        <h1> Join Warbler today. </h1>
+        <h1> Welcome Back </h1>
         <form method="POST">
             {{form.hidden_tag()}}
 
@@ -33,7 +33,7 @@
             {% endfor%}
             {{field(placeholder=field.label.text, class="form-control")}}
             {% endfor %}
-            <button>Sign me up</button>
+            <button>Login</button>
         </form>
 
         {% endblock %}
