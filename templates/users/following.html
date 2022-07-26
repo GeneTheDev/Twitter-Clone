@@ -9,7 +9,23 @@
 </head>
 
 <body>
+    {% block user_details %}
+    {% for followed_user in user.following %}
+    <a href="">Image for {{followed_user.username }}</a>
+    <a href="">@{{followed_user.username}}</a>
 
+    {% if g.user.is_following(followed_user)%}
+    <button>Unfollow</button>
+
+    {% else %}
+    <button>Follow</button>
+
+    {% endif %}
+
+    {{followed_user.bio}}
+
+    {% endfor %}
+    {% endblock %}
 </body>
 
 </html>

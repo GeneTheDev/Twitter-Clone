@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Likes</title>
+</head>
+
+<body>
+    {% block user_details %}
+
+    <ul>
+        {% for msg in likes %}
+        <li><a href="/likes">@{{msg.user.username}}</a> {{msg.timestamp.strftime('%d%B%Y')}} </li>
+    </ul>
+
+    {{msg.text}}
+
+    {% if user.id == g.user.id %}
+    <button>Like</button>
+    {% endif %}
+    {% endfor %}
+    {% endblock %}
+</body>
+
+</html>
