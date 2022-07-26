@@ -10,12 +10,25 @@
 
 <body>
     {% block content %}
-    {% if users|length == 0 %}
 
+    {% if users|length == 0 %}
     {% else %}
     {% for user in users %}
+    <a href="/index">Image for {{user.username}} </a>
+    <a href="">@{{user.username}} </a>
 
-    {% if g.user %}
+    {% if g.user %}{% if g.user.is_following(user) %}
+    <a action="/users/stop-following/{{user.id}}"><button>Unfollow</button></a>
+    {% else %}
+    <button>Follow</button>
+    {% endif %} {% endif %}
+
+    {{user.bio}}
+    {% endfor %}
+
+    {% endif %}
+
+    {% endblock %}
 </body>
 
 </html>
