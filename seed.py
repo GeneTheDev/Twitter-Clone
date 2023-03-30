@@ -1,10 +1,12 @@
+"""Seed database with sample data from CSV Files."""
+
 from csv import DictReader
-from app import db
+from app import db, app
 from models import User, Message, Follows
 
-
-db.drop_all()
-db.create_all()
+with app.app_context():
+    db.drop_all()
+    db.create_all()
 
 
 with open('generator/users.csv') as users:
