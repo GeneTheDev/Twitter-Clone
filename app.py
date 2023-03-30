@@ -1,4 +1,5 @@
 import os
+import pdb
 
 from flask import Flask, render_template, request, flash, redirect, session, g, abort
 from flask_debugtoolbar import DebugToolbarExtension
@@ -209,7 +210,7 @@ def stop_following(follow_id):
     followed_user = User.query.get(follow_id)
     g.user.following.remove(followed_user)
     db.session.commit()
-
+    pdb.set_trace()
     return redirect(f"/users/{g.user.id}/following")
 
 
