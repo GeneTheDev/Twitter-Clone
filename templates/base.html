@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    {% block title %} <title>Warbler</title>{% endblock %} 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="/static/logout.js"></script>
 </head>
 
 <body>
@@ -22,13 +23,14 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
+                    {% if 'user_id' in session %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link sign up" href="/signup">Sign Up</a>
                     </li>
-                    {% if 'user_id' in session %}
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link logout">Log Out</a>
                     </li>
@@ -42,7 +44,6 @@
         </div>
     </nav>
     {% block content %} {% endblock %}
-    <script src="/static/logout.js"></script>
 </body>
 
 </html> 
