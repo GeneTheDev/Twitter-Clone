@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
    {% block title %} <title>Warbler</title>{% endblock %} 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <script src="/static/logout.js"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    {% if 'user_id' in session %}
+                    {% if not g.user %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
@@ -32,18 +32,25 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link logout">Log Out</a>
+                        <a class="nav-link logout" href="/logout">Log Out</a>
                     </li>
                     {% endif %}
-                </ul>
+
+                </ul>                
                 <form class="d-flex" role="search">
+                    <input id="csrf_token_{{ unique_id }}" name="csrf_token" type="hidden" value="{{ csrf_token }}">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </form>                
             </div>
         </div>
     </nav>
     {% block content %} {% endblock %}
+    <script src="/static/logout.js"></script>
+    <script>
+        const unique_id = "{{ unique_id }}";
+      </script>
+      
 </body>
 
 </html> 

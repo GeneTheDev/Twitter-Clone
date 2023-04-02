@@ -1,9 +1,13 @@
 import os
 import pdb
+import uuid
 
 from flask import Flask, render_template, request, flash, redirect, session, g, abort
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
+from flask_wtf import FlaskForm
+from wtforms import HiddenField
+from flask_wtf.csrf import generate_csrf
 
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 from models import db, connect_db, User, Message
@@ -13,8 +17,6 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-# Get DB_URI from environ variable (useful for production/testing) or,
-# if not set there, use development local db.
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///warbler'))
 
@@ -27,8 +29,15 @@ toolbar = DebugToolbarExtension(app)
 connect_db(app)
 
 
+class SearchForm(FlaskForm):
+    csrf_token = HiddenField()
+
+
 ##############################################################################
 # User signup/login/logout
+@app.context_processor
+def inject_csrf_token():
+    return dict(csrf_token=generate_csrf())
 
 
 @app.before_request
@@ -50,9 +59,9 @@ def do_login(user):
 
 def do_logout():
     """Logout user."""
-
-    if CURR_USER_KEY in session:
-        del session[CURR_USER_KEY]
+    session.pop(CURR_USER_KEY, None)
+    flash("You have successfully logged out.", 'success')
+    return redirect("/")
 
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -112,15 +121,13 @@ def login():
     return render_template('users/login.html', form=form)
 
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=["GET", "POST"])
 def logout():
     """Handle logout of user."""
 
-    # IMPLEMENT THIS
     do_logout()
 
-    flash("You have successfully logged out.", 'success')
-    return redirect("/login")
+    return redirect("/")
 
 
 ##############################################################################
@@ -342,11 +349,9 @@ def messages_destroy(message_id):
 
 @app.route('/')
 def homepage():
-    """Show homepage:
-
-    - anon users: no messages
-    - logged in: 100 most recent messages of followed_users
-    """
+    csrf_token = "..."
+    search_form = SearchForm()
+    unique_id = uuid.uuid4().hex
 
     if g.user:
         messages = (Message
@@ -355,17 +360,10 @@ def homepage():
                     .limit(100)
                     .all())
 
-        return render_template('home.html', messages=messages)
+        return render_template('home.html', messages=messages, form=search_form, csrf_token=csrf_token, unique_id=unique_id)
 
     else:
-        return render_template('home-anon.html')
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """404 Page"""
-
-    return render_template('404.html')
+        return render_template('home-anon.html', form=search_form, unique_id=unique_id)
 
 
 ##############################################################################
@@ -384,3 +382,7 @@ def add_header(req):
     req.headers["Expires"] = "0"
     req.headers['Cache-Control'] = 'public, max-age=0'
     return req
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
