@@ -276,6 +276,9 @@ def profile():
             user.bio = form.bio.data
 
             db.session.commit()
+            flash("Profile updated successfully!", "success")
+            return redirect(f"/users/{user.id}")
+    return render_template("users/edit.html", form=form, user=user)
 
 
 @app.route('/users/delete', methods=["POST"])
