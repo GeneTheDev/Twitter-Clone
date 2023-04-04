@@ -13,18 +13,28 @@
     {{form.hidden_tag()}}
     {% for field in form if field.widget.input_type !='hidden' and field.name != 'password' %}
     {% for error in field.errors %}
+    <div class="invalid-feedback">
         {{error}}
+    </div>
     {% endfor %}
-        {{field(placeholder=field.label.text, class="form-control")}} 
+        <div class="form-group">
+            <label for="{{ field.id }}" class="fw-bold text-dark">{{ field.label.text }}</label>
+            {{ field(style="width: 95%;",placeholder=field.label.text, class="form-control") }} 
+        </div>
     {% endfor %}
     <h3>To confirm changes, enter your password:</h3>
     {% if form.password.errors %} 
     {% for error in form.password.errors %}
-        {{error}}
+        <div class="invalid-feedback">
+            {{ error }}
+        </div>
     {% endfor %}
     {% endif %}
-    {{form.password(placeholder="Enter your password to confirm", class="form-control")}}
-    <button>Edit this user!</button>
+    <div class="form-group">
+        <label for="{{ form.password.id }}">{{ form.password.label.text }}</label>
+        {{ form.password(style="width: 60%;",placeholder="Enter your password to confirm", class="form-control") }}
+    </div>
+    <button class="btn btn-primary mt-2">Edit this user!</button>
     {% endblock %}
 </body>
 </html>
