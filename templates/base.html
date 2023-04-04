@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
+    <link rel="stylesheet" href="/static/base.css">
    {% block title %} <title>Warbler</title>{% endblock %} 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 </head>
@@ -20,9 +21,6 @@
             <a class="navbar-brand" href="/">Warbler</a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
                     {% if not g.user %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
@@ -45,12 +43,168 @@
             </div>
         </div>
     </nav>
-    {% block content %} {% endblock %}
-    <script src="/static/logout.js"></script>
+    <!-- Left Side Bar -->
+    <div class="row">
+        <div class="d-none col-sm-2 d-sm-block col-md-3 col-lg-3 d-flex flex-column text-sm-end text-md-start align-items-lg-start left_sidebar border-end">
+        <div>
+            <span><i class="fa-brands fa-twitter display-5 text-info py-3  "></i></span>
+            
+        </div>
+        <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-house fs-3 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2 fw-bold"><a class="nav-link active" aria-current="page" href="/">Home</a></p>
+        </div>
+        <div class="d-flex align-items-center d-block d-md-none  justify-content-sm-end justify-content-md-start justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-magnifying-glass fs-2 py-3 "></i></span>
+            <!-- <p class="d-none d-lg-block fs-3 pt-3 ps-1">Home</p> -->
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-hashtag fs-2 py-3 d-none d-md-block"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2">Expolore</p>
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-bell fs-2 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2">Notifications</p>
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-envelope fs-2 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2">Messages</p>
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-bookmark fs-2 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2">Bookmark</p>
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-file-lines fs-2 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2">List</p>
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2"><a href="/users">Profile</a> </p>
+        </div>
+        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+            <span><i class="fa-solid fa-ellipsis fs-2 py-3"></i></span>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2">More</p>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-12 main_section">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Right Side Bar -->
+    <div class="col-lg-3 d-none d-lg-block  w-25 h-25 right_side_bar">
+        <div class="">
+            <div class="row bg-opacity-10 bg-black mx-1 my-2 pb-3 rounded-3">
+                <div class="col">
+                    <div class="trending">
+                        <p class="fs-6 fw-bold py-2">Trends for you</p>
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="m-0">Trending in Pakistan</p>
+                            </div>
+                            <div class="col-3 text-end">
+                                <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="fs-6 fw-bold mb-0">Nawaz Sharif</p>
+                                <p class="">12.7k Tweets</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="m-0">Technology . Trending</p>
+                            </div>
+                            <div class="col-3 text-end">
+                                <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="fs-6 fw-bold mb-0">#TikTok</p>
+                                <p class="">101k Tweets</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="m-0">Trending in Pakistan</p>
+                            </div>
+                            <div class="col-3 text-end">
+                                <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="fs-6 fw-bold mb-0">Audio</p>
+                                <p class="">132k Tweets</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="m-0">Trending in Pakistan</p>
+                            </div>
+                            <div class="col-3 text-end">
+                                <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="fs-6 fw-bold mb-0">#Bajwa</p>
+                                <p class="">8,104 Tweets</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="m-0">Trending in Pakistan</p>
+                            </div>
+                            <div class="col-3 text-end">
+                                <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="fs-6 fw-bold mb-0">Shame</p>
+                                <p class="">141k Tweets</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <p class="m-0">Trending in Pakistan</p>
+                            </div>
+                            <div class="col-3 text-end">
+                                <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="fs-6 fw-bold mb-0">#dollarvsrupee</p>
+                                <p class="">2,449 Tweets</p>
+                            </div>
+                        </div>
+
+                        <span class="text-info">Show more</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    
+</div>
+</div>
     <script>
         const unique_id = "{{ unique_id }}";
       </script>
-      
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+       crossorigin="anonymous"></script>
 </body>
 
 </html> 

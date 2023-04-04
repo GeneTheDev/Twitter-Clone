@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
+    <script src="https://kit.fontawesome.com/bf1c643ee2.js" crossorigin="anonymous"></script>
+    {% block title %} <title>Profile Details</title>{% endblock %} 
 </head>
 
 <body>
@@ -22,6 +24,12 @@
         </li>
         <li> Likes
             <a href="">{{user.likes|length}}</a>
+        </li>
+        <li> Bio
+            <a href="">{{user.bio}}</a>
+        </li>
+        <li> Location
+            <a href="">{{user.location}}</a>
         </li>
     </ul>
     {% if g.user.id == user.id %} <a href="/edit">Edit Profile</a>

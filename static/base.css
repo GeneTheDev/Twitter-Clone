@@ -1,0 +1,18 @@
+input:focus{
+    outline: none;
+}
+div.right_side_bar{
+    position: fixed;
+    right: 30px;
+    top: 60px;
+}
+.left_sidebar{
+    position: sticky;
+    top: 0px;
+    height: fit-content;
+}
+
+.main_bar {
+    margin: auto;
+}
+  
