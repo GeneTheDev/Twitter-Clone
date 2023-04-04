@@ -52,7 +52,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-house fs-3 py-3"></i></span>
-            <p class="d-none d-md-block fs-4 pt-3 ps-2 fw-bold"><a class="nav-link active" aria-current="page" href="/">Home</a></p>
+            <p class="d-none d-md-block fs-4 pt-3 ps-2"><a class="nav-link active" aria-current="page" href="/">Home</a></p>
         </div>
         <div class="d-flex align-items-center d-block d-md-none  justify-content-sm-end justify-content-md-start justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-magnifying-glass fs-2 py-3 "></i></span>
@@ -78,10 +78,14 @@
             <span><i class="fa-solid fa-file-lines fs-2 py-3"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">List</p>
         </div>
-        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
-            <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
-            <p class="d-none d-md-block fs-4 pt-3 ps-2"><a href="/users">Profile</a> </p>
-        </div>
+        <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
+        <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
+        {% if not g.user %}
+        {% else %}
+        <p class="d-none d-md-block fs-4 pt-3 ps-2"><a href="/users/<user_id>">Profile</a></p>
+        {% endif %}
+    </div>
+
         <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-ellipsis fs-2 py-3"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">More</p>

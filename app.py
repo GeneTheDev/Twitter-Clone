@@ -9,6 +9,7 @@ from flask_wtf import FlaskForm
 from wtforms import HiddenField
 from flask_wtf.csrf import generate_csrf
 
+
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 from models import db, connect_db, User, Message
 
@@ -164,6 +165,7 @@ def users_show(user_id):
                 .order_by(Message.timestamp.desc())
                 .limit(100)
                 .all())
+
     return render_template('users/show.html', user=user, messages=messages)
 
 

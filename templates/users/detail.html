@@ -32,7 +32,7 @@
             <a href="">{{user.location}}</a>
         </li>
     </ul>
-    {% if g.user.id == user.id %} <a href="/edit">Edit Profile</a>
+    {% if g.user.id == user.id %} <a href="/users/profile">Edit Profile</a>
     <button>Delete</button>
 
     {% elif g.user %} {% if g.user.is_following(user) %}
