@@ -12,40 +12,68 @@
 
 <body>
     {% block content %}
-    <ul>Image For {{user.username}}
-        <li> Messages
-            <a href="">{{user.messages|length}}</a>
-        </li>
-        <li> Following
-            <a href="">{{user.following|length}}</a>
-        </li>
-        <li> Followers
-            <a href="">{{user.followers|length}}</a>
-        </li>
-        <li> Likes
-            <a href="">{{user.likes|length}}</a>
-        </li>
-        <li> Bio
-            <a href="">{{user.bio}}</a>
-        </li>
-        <li> Location
-            <a href="">{{user.location}}</a>
-        </li>
-    </ul>
-    {% if g.user.id == user.id %} <a href="/users/profile">Edit Profile</a>
-    <button>Delete</button>
-
-    {% elif g.user %} {% if g.user.is_following(user) %}
-    <button>Unfollow</button>
-
-    {% else %}
-    <button>Follow</button>
-
-    {% endif %}
-    {% endif %}
-
-    <a href="">@{{user.username}}</a>
-
+    <div class="container">
+      <div class="row mt-4">
+        <div class="col-3">
+          <img src="./asserts/images/profile.jfif" class="rounded-circle" alt="profile-image" width="200px">
+        </div>
+        <div class="col-9">
+          <div class="row">
+            <div class="col-6">
+              <h3>{{user.username}}</h3>
+              <p>{{user.bio}}</p>
+              <p>{{user.location}}</p>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-4">
+                  <strong>{{user.messages|length}}</strong>
+                  <p>Messages</p>
+                </div>
+                <div class="col-4">
+                  <strong>{{user.following|length}}</strong>
+                  <p>Following</p>
+                </div>
+                <div class="col-4">
+                  <strong>{{user.followers|length}}</strong>
+                  <p>Followers</p>
+                </div>
+              </div>
+              <hr>
+              <button class="btn btn-primary btn-sm">Follow</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-tweets-tab" data-bs-toggle="tab" data-bs-target="#nav-tweets" type="button" role="tab" aria-controls="nav-tweets" aria-selected="true">Tweets</button>
+              <button class="nav-link" id="nav-likes-tab" data-bs-toggle="tab" data-bs-target="#nav-likes" type="button" role="tab" aria-controls="nav-likes" aria-selected="false">Likes</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-tweets" role="tabpanel" aria-labelledby="nav-tweets-tab">
+              <div class="card mt-3">
+                <div class="card-body">
+                  <h5 class="card-title">Tweet 1</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="card-link">Reply</a>
+                  <a href="#" class="card-link">Retweet</a>
+                  <a href="#" class="card-link">Like</a>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body">
+                  <h5 class="card-title">Tweet 2</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="card-link">Reply</a>
+                  <a href="#" class="card-link">Retweet</a>
+                  <a href="#" class="card-link">Like</a>
+                </div>
+              </div>
     {{user.bio}}
     {{user.location}}
     {% block user_details %}
