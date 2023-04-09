@@ -14,7 +14,8 @@ from helpers import get_random_datetime
 
 MAX_WARBLER_LENGTH = 140
 
-USERS_CSV_HEADERS = ['email', 'username', 'image_url', 'password', 'bio', 'header_image_url', 'location']
+USERS_CSV_HEADERS = ['email', 'username', 'image_url',
+                     'password', 'bio', 'header_image_url', 'location']
 MESSAGES_CSV_HEADERS = ['text', 'timestamp', 'user_id']
 FOLLOWS_CSV_HEADERS = ['user_being_followed_id', 'user_following_id']
 
@@ -23,6 +24,19 @@ NUM_MESSAGES = 1000
 NUM_FOLLWERS = 5000
 
 fake = Faker()
+
+user = {
+    'email': fake.email(),
+    'username': fake.user_name(),
+    'image_url': fake.image_url(),
+    'password': fake.password(),
+    'bio': fake.sentence(),
+    'header_image_url': fake.image_url(),
+    'location': fake.city()
+}
+
+print(f"Email: {user['email']}")
+print(f"Username: {user['username']}")
 
 # Generate random profile image URLs to use for users
 
@@ -55,7 +69,8 @@ with open('generator/users.csv', 'w') as users_csv:
         ))
 
 with open('generator/messages.csv', 'w') as messages_csv:
-    messages_writer = csv.DictWriter(messages_csv, fieldnames=MESSAGES_CSV_HEADERS)
+    messages_writer = csv.DictWriter(
+        messages_csv, fieldnames=MESSAGES_CSV_HEADERS)
     messages_writer.writeheader()
 
     for i in range(NUM_MESSAGES):
@@ -74,4 +89,5 @@ with open('generator/follows.csv', 'w') as follows_csv:
     users_writer.writeheader()
 
     for followed_user, follower in sample(all_pairs, NUM_FOLLWERS):
-        users_writer.writerow(dict(user_being_followed_id=followed_user, user_following_id=follower))
+        users_writer.writerow(
+            dict(user_being_followed_id=followed_user, user_following_id=follower))
