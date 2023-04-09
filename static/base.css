@@ -3,8 +3,9 @@ input:focus{
 }
 div.right_side_bar{
     position: fixed;
-    right: 30px;
+    right: 20px;
     top: 60px;
+    max-width: 400px;
 }
 .left_sidebar{
     position: sticky;
