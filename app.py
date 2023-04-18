@@ -257,6 +257,17 @@ def add_like(message_id):
     return redirect("/")
 
 
+@app.route('/users/profile/update-header-image', methods=['POST'])
+def update_header_image():
+    header_image_url = request.form.get('header_image_url')
+
+    g.user.header_image_url = header_image_url
+    db.session.commit()
+
+    flash("Header image updated successfully!", "success")
+    return jsonify(status='success')
+
+
 @app.route('/users/profile', methods=["GET", "POST"])
 def profile():
     """Update profile for current user."""
@@ -269,7 +280,7 @@ def profile():
     user = g.user
     form = UserEditForm(obj=user)
 
-    if request.is_xhr:
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         if 'header_image_url' in request.form:
             user.header_image_url = request.form['header_image_url']
             db.session.commit()
@@ -285,10 +296,11 @@ def profile():
             user.bio = form.bio.data
             user.location = form.location.data
 
+            user.header_image_url = form.header_image_url.data or user.header_image_url
             db.session.commit()
             flash("Profile updated successfully!", "success")
             return redirect(f"/users/{user.id}")
-    return render_template("users/edit.html", form=form, user=user)
+    return render_template("users/edit.html", form=form, user=user, user_header_image_url=CURR_USER_KEY.header_image_url)
 
 
 @app.route('/users/delete', methods=["POST"])

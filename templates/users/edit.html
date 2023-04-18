@@ -10,6 +10,7 @@
 <body>
     {% block content %} 
     <h2>Edit Your Profile</h2>
+    <form action="{{url_for('profile')}}" method="POST">
     {{form.hidden_tag()}}
     {% for field in form if field.widget.input_type !='hidden' and field.name != 'password' %}
     {% for error in field.errors %}
@@ -34,7 +35,9 @@
         <label for="{{ form.password.id }}">{{ form.password.label.text }}</label>
         {{ form.password(style="width: 60%;",placeholder="Enter your password to confirm", class="form-control") }}
     </div>
-    <button class="btn btn-primary mt-2">Edit this user!</button>
+    <button class="btn btn-primary mt-2">Edit this user!</button> 
+    </form>
+    
     {% endblock %}
 </body>
 </html>
