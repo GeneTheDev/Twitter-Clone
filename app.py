@@ -2,7 +2,7 @@ import os
 import pdb
 import uuid
 
-from flask import Flask, render_template, request, flash, redirect, session, g, abort
+from flask import Flask, render_template, request, flash, redirect, session, g, abort, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from flask_wtf import FlaskForm
@@ -268,6 +268,13 @@ def profile():
 
     user = g.user
     form = UserEditForm(obj=user)
+
+    if request.is_xhr:
+        if 'header_image_url' in request.form:
+            user.header_image_url = request.form['header_image_url']
+            db.session.commit()
+            return jsonify({'status': 'success'})
+        return jsonify({'status': 'error'})
 
     if form.validate_on_submit():
         if User.authenticate(user.username, form.password.data):

@@ -58,14 +58,14 @@
             <span><i class="fa-solid fa-magnifying-glass fs-2 py-3 "></i></span>
             <!-- <p class="d-none d-lg-block fs-3 pt-3 ps-1">Home</p> -->
         </div>
-        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+        <!-- <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-hashtag fs-2 py-3 d-none d-md-block"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">Expolore</p>
-        </div>
-        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+        </div> -->
+        <!-- <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-bell fs-2 py-3"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">Notifications</p>
-        </div>
+        </div> -->
         <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-envelope fs-2 py-3"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">Messages</p>
@@ -79,18 +79,19 @@
             <p class="d-none d-md-block fs-4 pt-3 ps-2">List</p>
         </div>
         <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
-        <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
-        {% if not g.user %}
-        {% else %}
-        <p class="d-none d-md-block fs-4 pt-3 ps-2"><a href="/users/<user_id>">Profile</a></p>
-        {% endif %}
-    </div>
+            <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
+                <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
+                <p class="d-none d-md-block fs-4 pt-3 ps-2">
+                    <a href="{{ url_for('users_show', user_id=g.user.id) }}" class="text-dark" style="text-decoration: none;">Profile</a>
+                </p>
+            </div>
+        </div>
 
-        <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+        <!-- <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-ellipsis fs-2 py-3"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">More</p>
+        </div> -->
         </div>
-    </div>
     <div class="col-lg-6 col-md-8 col-sm-12 main_section">
         {% block content %}
         {% endblock %}

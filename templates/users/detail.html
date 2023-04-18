@@ -12,10 +12,17 @@
 
 <body>
     {% block content %}
+    <div class="header-image">
+      <img id="header-image" src="https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg" alt="header-image" style="width: 100%; min-height: 200px;">
+      <label class="btn btn-primary btn-sm" style="margin-top: 15px;">
+        Edit Background
+        <input type="file" onchange="changeHeaderImage(event)" hidden>
+      </label>      
+    </div>
     <div class="container">
       <div class="row mt-4">
         <div class="col-3">
-          <img src="./asserts/images/profile.jfif" class="rounded-circle" alt="profile-image" width="200px">
+          <img src="https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg" class="rounded-circle" alt="profile-image" width="200px">
         </div>
         <div class="col-9">
           <div class="row">
@@ -40,7 +47,8 @@
                 </div>
               </div>
               <hr>
-              <button class="btn btn-primary btn-sm">Follow</button>
+              <button class="btn btn-primary btn-sm"><a href="/users/profile">Edit Profile</a></button>
+
             </div>
           </div>
         </div>
@@ -74,10 +82,21 @@
                   <a href="#" class="card-link">Like</a>
                 </div>
               </div>
-    {{user.bio}}
-    {{user.location}}
     {% block user_details %}
     {% endblock %}
+
+    <script>
+  function changeHeaderImage(event) {
+  const file = event.target;
+  const reader = new FileReader();
+  reader.onload = function () {
+    const image = document.getElementById("header-image");
+    const dataURL = reader.result;
+    image.src = dataURL;
+  };
+  reader.readAsDataURL(file.files[0]);
+}
+</script>
     {% endblock %}
 
 
