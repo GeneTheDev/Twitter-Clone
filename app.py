@@ -11,6 +11,7 @@ from flask_wtf.csrf import generate_csrf
 
 
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
+
 from models import db, connect_db, User, Message
 
 CURR_USER_KEY = "curr_user"
@@ -28,6 +29,12 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
+
+
+# @app.before_first_request
+# def setup():
+#     db.drop_all()
+#     db.create_all()
 
 
 class SearchForm(FlaskForm):
@@ -67,15 +74,6 @@ def do_logout():
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    """Handle user signup.
-
-    Create new user and add to DB. Redirect to home page.
-
-    If form not valid, present form.
-
-    If the there already is a user with that username: flash message
-    and re-present form.
-    """
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
     form = UserAddForm()
@@ -96,7 +94,9 @@ def signup():
 
         do_login(user)
 
-        return redirect("/")
+        # import pdb
+        # pdb.set_trace()
+        return redirect("/login")
 
     else:
         return render_template('users/signup.html', form=form)

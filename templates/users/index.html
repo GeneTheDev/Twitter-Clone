@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,30 +6,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Twitter-like User List</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    {% block content %}
+    <div class="container">
+        <h1 class="mt-4 mb-4"> Users </h1>
+        {% block content %}
 
-    {% if users|length == 0 %}
-    {% else %}
-    {% for user in users %}
-    <a href="/index">Image for {{user.username}} </a>
-    <a href="">@{{user.username}} </a>
+        {% if users|length == 0 %}
+        <p>No users found.</p>
+        {% else %}
+        {% for user in users %}
+        {% if user %}
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-2">
+                    <a href="/index" class="text-decoration-none">Image for {{user.username}}</a>
+                </div>
+                <div class="col-6">
+                    <a href="" class="text-decoration-none">@{{user.username}}</a>
+                </div>
+                <div class="col-4">
+                    {% if g.user %}{% if g.user.is_following(user) %}
+                    {% if user.id %}
+                    <a href="/users/stop-following/{{user.id}}" class="btn btn-primary">Unfollow</a>
+                    {% endif %}
+                    {% else %}
+                    <button class="btn btn-primary">Follow</button>
+                    {% endif %} {% endif %}
+                </div>
+            </div>
+            <p class="mt-2">{{user.bio}}</p>
+        </div>
+        {% else %}
+        <p>User not found.</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    
+        {% endblock %}
+    </div>
 
-    {% if g.user %}{% if g.user.is_following(user) %}
-    <a action="/users/stop-following/{{user.id}}"><button>Unfollow</button></a>
-    {% else %}
-    <button>Follow</button>
-    {% endif %} {% endif %}
-
-    {{user.bio}}
-    {% endfor %}
-
-    {% endif %}
-
-    {% endblock %}
+    <!-- Add jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

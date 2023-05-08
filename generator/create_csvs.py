@@ -48,12 +48,30 @@ image_urls = [
 
 # Generate random header image URLs to use for users
 
+
+def get_header_image_url(i):
+    try:
+        response = requests.get(f"http://www.splashbase.co/api/v1/images/{i}")
+        response.raise_for_status()
+
+        if response.content and response.headers.get('Content-Type') == 'application/json':
+            json_data = response.json()
+            if 'url' in json_data:
+                return json_data['url']
+
+    except (requests.exceptions.RequestException, KeyError):
+        pass
+
+    return 'https://via.placeholder.com/150'
+
+
 header_image_urls = [
-    requests.get(f"http://www.splashbase.co/api/v1/images/{i}").json()['url']
+    get_header_image_url(i)
     for i in range(1, 46)
 ]
 
-with open('generator/users.csv', 'w') as users_csv:
+
+with open('./users.csv', 'w') as users_csv:
     users_writer = csv.DictWriter(users_csv, fieldnames=USERS_CSV_HEADERS)
     users_writer.writeheader()
 
@@ -68,7 +86,7 @@ with open('generator/users.csv', 'w') as users_csv:
             location=fake.city()
         ))
 
-with open('generator/messages.csv', 'w') as messages_csv:
+with open('./messages.csv', 'w') as messages_csv:
     messages_writer = csv.DictWriter(
         messages_csv, fieldnames=MESSAGES_CSV_HEADERS)
     messages_writer.writeheader()
@@ -82,7 +100,7 @@ with open('generator/messages.csv', 'w') as messages_csv:
 
 # Generate follows.csv from random pairings of users
 
-with open('generator/follows.csv', 'w') as follows_csv:
+with open('./follows.csv', 'w') as follows_csv:
     all_pairs = list(permutations(range(1, NUM_USERS + 1), 2))
 
     users_writer = csv.DictWriter(follows_csv, fieldnames=FOLLOWS_CSV_HEADERS)
