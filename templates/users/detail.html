@@ -93,10 +93,11 @@
                     <a href="#" class="card-link">Reply</a>
                     <a href="#" class="card-link">Retweet</a>
                     <form action="{{ url_for('add_like', message_id=message.id) }}" method="POST">
+                      {{ form.csrf_token }}
                       {% if message not in g.user.likes %}
-                          <button type="submit">Like</button>
+                          <button type="submit" class="btn btn-outline-primary">Like</button>
                       {% else %}
-                          <button type="submit">Unlike</button>
+                          <button type="submit" class="btn btn-primary">Unlike</button>
                       {% endif %}
                   </form>
                   </div>

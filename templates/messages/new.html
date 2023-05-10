@@ -10,13 +10,15 @@
 
 <body>
     {% block content %}
-    {{form.csrf_token}}
-    {% if form.text.errors %} {% for error in form.text.errors %}
-    {{error}}
-    {% endfor %}
-    {% endif %}
-    {{form.text(placeholder="What's happening ?", class="form-control", rows="3")}}
-    <button>Add my message</button>
+    <form method="POST" action="{{ url_for('messages_add') }}">
+        {{form.csrf_token}}
+        {% if form.text.errors %} {% for error in form.text.errors %}
+        {{error}}
+        {% endfor %}
+        {% endif %}
+        {{form.text(placeholder="What's happening ?", class="form-control", rows="3")}}
+        <button type="submit" class="btn btn-primary">Add my message</button>
+    </form>
     {% endblock %}
 </body>
 
