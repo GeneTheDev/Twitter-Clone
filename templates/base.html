@@ -77,14 +77,17 @@
         <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
             <span><i class="fa-solid fa-file-lines fs-2 py-3"></i></span>
             <p class="d-none d-md-block fs-4 pt-3 ps-2">
-                <a href="/users" class="text-dark" style="text-decoration: none;">List</a>    
+                <a href="/users" class="text-dark" style="text-decoration: none;">Users</a>    
             </p>
         </div>
         <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
             <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
                 <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
                 <p class="d-none d-md-block fs-4 pt-3 ps-2">
+                {% if g.user %}
                     <a href="{{ url_for('users_show', user_id=g.user.id) }}" class="text-dark" style="text-decoration: none;">Profile</a>
+                {% endif %}
+                  
                 </p>
             </div>
         </div>

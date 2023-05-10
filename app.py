@@ -166,7 +166,9 @@ def users_show(user_id):
                 .limit(100)
                 .all())
 
-    return render_template('users/show.html', user=user, messages=messages)
+    form = MessageForm()
+
+    return render_template('users/show.html', user=user, messages=messages, form=form)
 
 
 @app.route('/users/<int:user_id>/following')
@@ -300,7 +302,9 @@ def profile():
             db.session.commit()
             flash("Profile updated successfully!", "success")
             return redirect(f"/users/{user.id}")
-    return render_template("users/edit.html", form=form, user=user, user_header_image_url=CURR_USER_KEY.header_image_url)
+
+    user_header_image_url = user.header_image_url
+    return render_template("users/edit.html", form=form, user=user, user_header_image_url=user_header_image_url)
 
 
 @app.route('/users/delete', methods=["POST"])
