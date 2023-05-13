@@ -94,8 +94,8 @@ def signup():
 
         do_login(user)
 
-        # import pdb
-        # pdb.set_trace()
+        import pdb
+        pdb.set_trace()
         return redirect("/login")
 
     else:
@@ -241,11 +241,9 @@ def add_like(message_id):
 
     if not g.user:
         flash("Access unauthorized.", "danger")
-        return redirect("/")
+        return redirect(request.referrer)
 
     liked_message = Message.query.get_or_404(message_id)
-    if liked_message.user_id == g.user.id:
-        return abort(403)
 
     user_likes = g.user.likes
 
@@ -256,7 +254,7 @@ def add_like(message_id):
 
     db.session.commit()
 
-    return redirect("/")
+    return redirect(request.referrer)
 
 
 @app.route('/users/profile/update-header-image', methods=['POST'])
