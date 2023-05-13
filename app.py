@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from flask_wtf import FlaskForm
 from wtforms import HiddenField
 from flask_wtf.csrf import generate_csrf
-
+from jinja2 import Environment, FileSystemLoader
 
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 

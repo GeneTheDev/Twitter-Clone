@@ -90,8 +90,6 @@
                   <div class="card-body">
                     <h5 class="card-title">{{ message.title }}</h5>
                     <p class="card-text">{{ message.text }}</p>
-                    <a href="#" class="card-link">Reply</a>
-                    <a href="#" class="card-link">Retweet</a>
                     <form action="{{ url_for('add_like', message_id=message.id) }}" method="POST">
                       {{ form.csrf_token }}
                       {% if message not in g.user.likes %}
@@ -103,21 +101,27 @@
                   </div>
                 </div>
               {% endfor %}
-
-              <div class="card mt-3">
-                <div class="card-body">
-                  <h5 class="card-title">Tweet 2</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Reply</a>
-                  <a href="#" class="card-link">Retweet</a>
-                  <a href="#" class="card-link">Like</a>
-                </div>
-              </div>
             </div>
+            <div class="tab-pane fade" id="nav-likes" role="tabpanel" aria-labelledby="nav-likes-tab">
+              <ul class="list-unstyled">
+                {% for msg in g.user.likes %}
+                  <li>
+                    <div class="card mt-3">
+                      <div class="card-body">
+                        <h5 class="card-title"><a href="/messages/{{msg.id}}">{{msg.text}}</a></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{msg.timestamp.strftime('%d%B%Y')}}</h6>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            
           </div>
         </div>
-    </div>    
-    {% block user_details %}
+    </div>
+    
+    <!-- {% block user_details %} -->
     {% endblock %}
 
     <script>

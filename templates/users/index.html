@@ -21,27 +21,19 @@
         {% else %}
         {% for user in users %}
         {% if user %}
-        <div class="list-group-item">
-            <div class="row">
-                <div class="col-2">
-                    <a href="/index" class="text-decoration-none">Image for {{user.username}}</a>
-                </div>
-                <div class="col-6">
-                {% for user in users %}
-                    <a href="{{ url_for('users_show', user_id=user.id) }}">{{ user.username }}</a>
-                {% endfor %}
-                </div>
-                <div class="col-4">
-                    {% if g.user %}{% if g.user.is_following(user) %}
-                    {% if user.id %}
-                    <a href="/users/stop-following/{{user.id}}" class="btn btn-primary">Unfollow</a>
-                    {% endif %}
-                    {% else %}
-                    <button class="btn btn-primary">Follow</button>
-                    {% endif %} {% endif %}
-                </div>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{ url_for('users_show', user_id=user.id) }}">{{ user.username }}</a></h5>
+                <p class="card-text">{{user.bio}}</p>
+                <p><strong>Followers: </strong>{{ user.followers }} <strong>Following: </strong>{{ user.following }}</p>
+                {% if g.user %}{% if g.user.is_following(user) %}
+                {% if user.id %}
+                <a href="/users/stop-following/{{user.id}}" class="btn btn-primary">Unfollow</a>
+                {% endif %}
+                {% else %}
+                <button class="btn btn-primary">Follow</button>
+                {% endif %} {% endif %}
             </div>
-            <p class="mt-2">{{user.bio}}</p>
         </div>
         {% else %}
         <p>User not found.</p>
