@@ -1,0 +1,6 @@
+Defaulting to user installation because normal site-packages is not writeable
+Collecting Werkzeug
+  Using cached Werkzeug-2.3.4-py3-none-any.whl (242 kB)
+Requirement already satisfied: MarkupSafe>=2.1.1 in /home/gene/.local/lib/python3.8/site-packages (from Werkzeug) (2.1.2)
+Installing collected packages: Werkzeug
+Successfully installed Werkzeug-2.3.4
