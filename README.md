@@ -3,6 +3,12 @@
 The main goal for this project is to implement a twitter like clone that allows a user to post and like another users tweet. My focus wasn't too much on the design but to demonstrate the functionality of the project.
 
 # Project Description
+Features:
+- Register and login authentication
+- Adding a post 
+- Liking a posts
+- Profile editing
+
 
 Technologies used : 
 - Python 
